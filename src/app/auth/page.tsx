@@ -105,150 +105,95 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-purple-50 via-white to-purple-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 p-4">
-      <div className="relative w-full max-w-md">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-purple-300/30 dark:border-slate-700/50 p-8 space-y-8"
-        >
-          {/* Header */}
-          <div className="text-center space-y-3">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-200/50 dark:bg-purple-700/50 rounded-3xl shadow-lg">
-              {step === "phone" ? (
-                <Smartphone className="w-10 h-10 text-purple-700 dark:text-white" />
-              ) : (
-                <Shield className="w-10 h-10 text-purple-700 dark:text-white" />
-              )}
+    <div className="wrapper w-full h-screen flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full bg-white/90 backdrop-blur-xl border border-purple-200 rounded-3xl
+        shadow-xl p-8 space-y-4"
+      >
+        {step === "phone" ? (
+          <>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-medium text-purple-600">
+                شماره موبایل
+              </label>
+
+              <Input
+                {...register("phone", { required: true })}
+                disabled={loading}
+                dir="ltr"
+                placeholder="09123456789"
+                className="w-full border border-purple-300 px-4 text-purple-800
+                focus:outline-none focus:border-purple-500
+                focus:ring-4 focus:ring-purple-200 transition"
+              />
             </div>
-            <div>
-              <h1 className="text-2xl font-bold text-purple-700 dark:text-white">
-                {step === "phone" ? "ورود به حساب" : "تایید کد"}
-              </h1>
-              <p className="text-purple-600 dark:text-purple-300 text-sm mt-1">
-                {step === "phone"
-                  ? "شماره موبایل خود را وارد کنید"
-                  : "کد ارسال شده را وارد کنید"}
+
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-purple-600 to-fuchsia-600
+              text-white font-bold text-sm hover:shadow-lg hover:scale-[1.02]
+              active:scale-[0.98] transition disabled:opacity-50"
+            >
+              {loading ? (
+                <PropagateLoader size={8} color="white" />
+              ) : (
+                "ارسال کد تأیید"
+              )}
+            </Button>
+          </>
+        ) : (
+          <>
+            {/* شماره */}
+            <div className="rounded-xl bg-purple-50 border border-purple-200 p-4 text-center space-y-1">
+              <p className="text-xs text-purple-500">کد ارسال شد به</p>
+              <p dir="ltr" className="text-purple-800 font-semibold text-lg">
+                {phone}
               </p>
             </div>
-          </div>
 
-          {/* Form Body */}
-          {step === "phone" ? (
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-purple-700 dark:text-purple-300 block text-right">
-                  شماره موبایل
-                </label>
-                <div className="relative">
-                  <Input
-                    {...register("phone", { required: true })}
-                    placeholder="09123456789"
-                    dir="ltr"
-                    disabled={loading}
-                    className="h-14 text-lg pl-12 pr-4 rounded-xl border-2 border-purple-300 dark:border-purple-600 
-                               bg-white dark:bg-slate-700 text-purple-800 dark:text-white
-                               focus:border-purple-500 focus:ring-4 focus:ring-purple-200 dark:focus:ring-purple-900/30
-                               transition-all duration-200"
-                  />
-                  <Smartphone className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-400" />
-                </div>
-              </div>
-              <Button
-                type="submit"
+            <div className="space-y-3 text-center">
+              <CustomOTPInput
+                length={5}
                 disabled={loading}
-                className="w-full h-14 text-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl
-                           transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]
-                           disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? (
-                  <PropagateLoader size={8} color="white" />
-                ) : (
-                  <div className="flex items-center justify-center gap-2">
-                    <span>ارسال کد تایید</span>
-                    <ArrowRight className="w-5 h-5" />
-                  </div>
-                )}
-              </Button>
+                onChange={(val) => setValue("otp", val)}
+              />
             </div>
-          ) : (
-            <div className="space-y-6">
-              {/* OTP Display */}
-              <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center">
-                <p className="text-sm text-purple-600 dark:text-purple-300">
-                  کد تایید به شماره
-                </p>
-                <p
-                  className="font-semibold text-purple-800 dark:text-white text-lg"
-                  dir="ltr"
-                >
-                  {phone}
-                </p>
-                <p className="text-xs text-purple-500 dark:text-purple-400 mt-1">
-                  ارسال شد
-                </p>
-              </div>
 
-              {/* OTP Input */}
-              <div className="space-y-4">
-                <label className="text-sm font-medium text-purple-700 dark:text-purple-300 block text-center">
-                  کد ۵ رقمی را وارد کنید
-                </label>
-                <CustomOTPInput
-                  length={5}
-                  disabled={loading}
-                  onChange={(val) => setValue("otp", val)}
-                />
-              </div>
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full h-10 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600
+              text-white font-bold text-sm hover:shadow-lg hover:scale-[1.02]
+              active:scale-[0.98] transition disabled:opacity-50"
+            >
+              {loading ? (
+                <PropagateLoader size={8} color="white" />
+              ) : (
+                "تأیید و ورود"
+              )}
+            </Button>
 
-              {/* Timer and Resend */}
-              <div className="flex items-center justify-between p-4 bg-purple-50 dark:bg-purple-900/10 rounded-xl">
-                <div className="flex items-center gap-2 text-purple-600 dark:text-purple-300">
-                  <Clock className="w-4 h-4" />
-                  <span className="font-mono text-sm">
-                    {formatTime(timeLeft)}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleResend}
-                  disabled={!canResend || loading}
-                  className={`text-sm font-medium transition-colors ${
-                    canResend && !loading
-                      ? "text-purple-500 hover:text-purple-600 cursor-pointer"
-                      : "text-purple-300 cursor-not-allowed"
-                  }`}
-                >
-                  ارسال مجدد
-                </button>
-              </div>
-
-              <Button
-                type="submit"
-                disabled={loading}
-                className="w-full h-14 text-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl
-                           transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]
-                           disabled:opacity-50 disabled:cursor-not-allowed"
+            {/* تایمر */}
+            <div className="flex items-center justify-between text-sm text-purple-500">
+              <span className="font-mono">{formatTime(timeLeft)}</span>
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={!canResend || loading}
+                className={`transition font-medium ${
+                  canResend
+                    ? "text-purple-600 hover:text-purple-700"
+                    : "opacity-40 cursor-not-allowed"
+                }`}
               >
-                {loading ? (
-                  <PropagateLoader size={8} color="white" />
-                ) : (
-                  <div className="flex items-center justify-center gap-2">
-                    <span>تایید و ورود</span>
-                    <ArrowRight className="w-5 h-5" />
-                  </div>
-                )}
-              </Button>
+                ارسال مجدد
+              </button>
             </div>
-          )}
-        </form>
-
-        {/* Footer */}
-        <div className="text-center mt-6">
-          <p className="text-xs text-purple-400 dark:text-purple-500">
-            با ورود، شما با قوانین و مقررات موافقت می‌کنید
-          </p>
-        </div>
-      </div>
+          </>
+        )}
+      </form>
     </div>
   );
 }

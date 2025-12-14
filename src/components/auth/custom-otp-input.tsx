@@ -41,9 +41,7 @@ export function CustomOTPInput({
   ) => {
     if (e.key === "Backspace") {
       if (otp[index] === "") {
-        if (index > 0) {
-          inputsRef.current[index - 1]?.focus();
-        }
+        if (index > 0) inputsRef.current[index - 1]?.focus();
       } else {
         const newOtp = [...otp];
         newOtp[index] = "";
@@ -54,7 +52,13 @@ export function CustomOTPInput({
   };
 
   return (
-    <div dir="ltr" className="flex justify-center gap-3">
+    <div
+      dir="ltr"
+      className="
+        flex justify-center
+        gap-2 sm:gap-3 md:gap-4
+      "
+    >
       {otp.map((value, index) => (
         <input
           key={index}
@@ -68,13 +72,30 @@ export function CustomOTPInput({
           value={value}
           onChange={(e) => handleChange(e, index)}
           onKeyDown={(e) => handleKeyDown(e, index)}
-          className="w-14 h-14 text-center text-2xl font-semibold rounded-xl border-2 border-slate-200 
-                     bg-white text-slate-800 transition-all duration-200
-                     focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none
-                     hover:border-blue-300 hover:shadow-md
-                     dark:bg-slate-800 dark:border-slate-600 dark:text-white
-                     dark:focus:border-blue-400 dark:focus:ring-blue-900/30
-                     disabled:opacity-50 disabled:cursor-not-allowed"
+          className="
+            w-12 h-12
+            sm:w-14 sm:h-14
+            md:w-16 md:h-16
+
+            text-center
+            text-xl sm:text-2xl font-bold
+
+            rounded-xl sm:rounded-2xl
+            border-2 border-purple-200
+            bg-white text-purple-800
+
+            transition-all duration-200
+
+            focus:outline-none
+            focus:border-purple-500
+            focus:ring-4 focus:ring-purple-200
+
+            hover:border-purple-400
+            hover:shadow-md
+
+            disabled:opacity-50
+            disabled:cursor-not-allowed
+          "
         />
       ))}
     </div>
