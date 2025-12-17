@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <body className={`${font.className} glass-layout hidden-scrollbar`}>
         <RefreshTokenProvider>
         <ThemeProvider>

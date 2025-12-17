@@ -79,19 +79,23 @@ export function CustomOTPInput({
 
             text-center
             text-xl sm:text-2xl font-bold
+            text-white
 
             rounded-xl sm:rounded-2xl
-            border-2 border-purple-200
-            bg-white text-purple-800
+            bg-violet-950/60
+            border border-violet-500/30
 
+            backdrop-blur
             transition-all duration-200
 
             focus:outline-none
-            focus:border-purple-500
-            focus:ring-4 focus:ring-purple-200
+            focus:border-purple-400
+            focus:ring-2
+            focus:ring-purple-500/60
 
             hover:border-purple-400
-            hover:shadow-md
+            hover:shadow-lg
+            hover:shadow-purple-700/30
 
             disabled:opacity-50
             disabled:cursor-not-allowed

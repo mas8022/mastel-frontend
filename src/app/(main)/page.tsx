@@ -1,14 +1,17 @@
+import Contacts from "@/components/chat/Contacts";
+import Header from "@/components/chat/header";
+import Search from "@/components/chat/search";
 
-const HomePage = () => {
+export default function ChatPage() {
   return (
-    <div className="w-full h-40">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque magni
-      asperiores hic earum repellat dicta quidem aut nesciunt, deleniti corporis
-      dolorum libero, eaque tempore. Nulla aspernatur molestias maiores totam
-      magni, inventore officia, ipsam, cum dolor alias blanditiis cupiditate
-      deleniti minus?
+    <div
+      className="w-full min-h-screen
+        flex flex-col gap-2 h-full
+      "
+    >
+      <Header />
+      <Search />
+      <Contacts />
     </div>
   );
-};
-
-export default HomePage;
+}

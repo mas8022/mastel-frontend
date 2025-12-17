@@ -1,5 +1,5 @@
 export interface ResType {
-  status: number;
-  message?: string;
+  status?: any;
+  message?: any;
   data?: any;
 }
