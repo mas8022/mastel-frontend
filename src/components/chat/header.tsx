@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import Logo from "../shared/logo";
-import { MoreHorizontal } from "lucide-react";
+import Profile from "./Profile";
 
 const Header = () => {
   return (
@@ -21,7 +21,7 @@ const Header = () => {
             hover:text-white
           "
       >
-        <MoreHorizontal />
+        <Profile/>
       </Button>
     </div>
   );

@@ -6,7 +6,7 @@ export default function ChatPage() {
   return (
     <div
       className="w-full min-h-screen
-        flex flex-col gap-2 h-full
+        flex flex-col gap-6 h-full
       "
     >
       <Header />
