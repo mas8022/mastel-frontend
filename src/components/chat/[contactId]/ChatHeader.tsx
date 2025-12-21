@@ -1,16 +1,22 @@
 import { Phone, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "../user-avatar";
-import { UserType } from "@/types/user";
+import useGetContact from "@/hooks/useGetContact";
+import { MoonLoader } from "react-spinners";
+import OnlineStatusBox from "./OnlineStatusBox";
 
-export function ChatHeader({ user }: { user: Pick<UserType, "username" | "avatar"> }) {
+export function ChatHeader() {
+  const { data: contact, isPending } = useGetContact();
+
+  if (isPending) return <MoonLoader size={18} />;
+
   return (
     <div className="sticky top-0 flex items-center justify-between border-b px-4 py-3 bg-background/80 backdrop-blur z-10 rounded-xl">
       <div className="flex items-center gap-3">
-        <UserAvatar user={user} />
+        <UserAvatar user={contact} />
         <div>
-          <div className="text-sm font-semibold">{user.username}</div>
-          <div className="text-xs text-muted-foreground">online</div>
+          <div className="text-sm font-semibold">{contact?.username}</div>
+          <OnlineStatusBox />
         </div>
       </div>
 
