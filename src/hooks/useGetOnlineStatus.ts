@@ -27,8 +27,6 @@ const useGetOnlineStatus = () => {
     };
   }, [socket, contactId]);
 
-  console.log(isOnline);
-
   return { isOnline };
 };
 
