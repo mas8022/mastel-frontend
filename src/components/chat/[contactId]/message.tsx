@@ -3,10 +3,13 @@ import { useParams } from "next/navigation";
 import { MessageType } from "@/types/message";
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 import MessageContextMenu from "./MessageContextMenu";
+import { useState } from "react";
+import EditModal from "./EditModal";
 
 export function Message({ message }: { message: MessageType }) {
   const { contactId } = useParams();
   const isMyMessage = message.senderId !== Number(contactId);
+  const [editModalActive, setEditModelActive] = useState<boolean>(false);
 
   return (
     <ContextMenu>
@@ -16,7 +19,6 @@ export function Message({ message }: { message: MessageType }) {
             isMyMessage ? "flex-row-reverse" : ""
           }`}
         >
-          {/* Message bubble */}
           <div
             className={`
               max-w-[75%]
@@ -36,8 +38,17 @@ export function Message({ message }: { message: MessageType }) {
           </div>
         </div>
       </ContextMenuTrigger>
+      <EditModal
+        editModalActive={editModalActive}
+        setEditModelActive={setEditModelActive}
+        message={message}
+      />
 
-      <MessageContextMenu isMyMessage={isMyMessage} message={message}/>
+      <MessageContextMenu
+        isMyMessage={isMyMessage}
+        message={message}
+        setEditModelActive={setEditModelActive}
+      />
     </ContextMenu>
   );
 }

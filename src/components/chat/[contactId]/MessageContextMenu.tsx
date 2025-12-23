@@ -3,18 +3,24 @@ import {
   ContextMenuItem,
 } from "@/components/ui/context-menu";
 import { MessageType } from "@/types/message";
-import { Reply, Pencil } from "lucide-react";
+import { Reply } from "lucide-react";
 import DeleteMessageBtn from "./DeleteMessageBtn";
+import EditMessageBtn from "./EditMessageBtn";
+
+type PropsType = {
+  isMyMessage: boolean;
+  message: MessageType;
+  setEditModelActive: (value: boolean) => void;
+};
 
 const MessageContextMenu = ({
   isMyMessage,
   message,
-}: {
-  isMyMessage: boolean;
-  message: MessageType;
-}) => {
+  setEditModelActive,
+}: PropsType) => {
   return (
     <ContextMenuContent
+      onClick={() => setEditModelActive(true)}
       className="
           min-w-[180px]
           rounded-2xl
@@ -29,10 +35,8 @@ const MessageContextMenu = ({
           data-[state=open]:duration-200
         "
     >
-      {isMyMessage && <DeleteMessageBtn messageId={message.id}/>}
-
-      {isMyMessage && <MenuItem icon={<Pencil />} label="Edit" />}
-
+      {isMyMessage && <DeleteMessageBtn messageId={message.id} />}
+      {isMyMessage && <EditMessageBtn />}
       <MenuItem icon={<Reply />} label="Reply" />
     </ContextMenuContent>
   );
