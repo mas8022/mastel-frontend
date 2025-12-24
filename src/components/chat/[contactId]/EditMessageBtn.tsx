@@ -2,9 +2,14 @@
 import { Pencil } from "lucide-react";
 import { ContextMenuItem } from "@/components/ui/context-menu";
 
-const EditMessageBtn = () => {
+const EditMessageBtn = ({
+  setEditModelActive,
+}: {
+  setEditModelActive: (value: boolean) => void;
+}) => {
   return (
     <ContextMenuItem
+      onClick={() => setEditModelActive(true)}
       className={`
           group
           flex items-center gap-3

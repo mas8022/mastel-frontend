@@ -1,0 +1,40 @@
+import { ContextMenuItem } from "@/components/ui/context-menu";
+import { MessageType } from "@/types/message";
+import { Reply } from "lucide-react";
+
+type PropsType = {
+  message: MessageType;
+  setRefrenceMessage: (value: MessageType) => void;
+};
+
+const ReplyMessageBtn = ({ message, setRefrenceMessage }: PropsType) => {
+  return (
+    <ContextMenuItem
+      onClick={() => setRefrenceMessage(message)}
+      className={`
+        group
+        flex items-center gap-3
+        rounded-xl
+        px-3 py-2.5
+        text-sm
+        transition-all
+        text-zinc-100 focus:bg-white/10
+      `}
+    >
+      <span
+        className={`
+          flex h-8 w-8 items-center justify-center
+          rounded-lg
+          bg-white/10 text-zinc-200
+          group-focus:scale-95
+          transition
+        `}
+      >
+        <Reply />
+      </span>
+      Reply
+    </ContextMenuItem>
+  );
+};
+
+export default ReplyMessageBtn;

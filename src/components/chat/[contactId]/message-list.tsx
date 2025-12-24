@@ -1,9 +1,14 @@
 "use client";
+import { MessageType } from "@/types/message";
 import Empty from "./Empty";
 import { Message } from "./message";
 import useGetMessages from "@/hooks/useGetMessages";
 
-export function MessageList() {
+export function MessageList({
+  setRefrenceMessage,
+}: {
+  setRefrenceMessage: (value: MessageType) => void;
+}) {
   const { messages } = useGetMessages();
 
   return (
@@ -11,7 +16,11 @@ export function MessageList() {
       {messages?.length ? (
         <div className="space-y-6">
           {messages.map((message, index) => (
-            <Message key={index} message={message} />
+            <Message
+              key={index}
+              message={message}
+              setRefrenceMessage={setRefrenceMessage}
+            />
           ))}
         </div>
       ) : (
