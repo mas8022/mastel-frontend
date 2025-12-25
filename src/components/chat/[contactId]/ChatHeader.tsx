@@ -11,7 +11,7 @@ export function ChatHeader() {
   if (isPending) return <MoonLoader size={18} />;
 
   return (
-    <div className="sticky top-0 flex items-center justify-between border-b px-4 py-3 bg-background/80 backdrop-blur z-10 rounded-xl">
+    <div className="flex items-center justify-between border-b px-4 py-3 bg-background/80 backdrop-blur z-10 rounded-xl">
       <div className="flex items-center gap-3">
         <UserAvatar user={contact} />
         <div>

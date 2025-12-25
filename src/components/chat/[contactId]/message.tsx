@@ -37,7 +37,6 @@ export function Message({ message, setRefrenceMessage }: Props) {
               }
             `}
           >
-            {/* Reply preview (clean Telegram-like) */}
             {message.replyTo && (
               <div
                 className={`
@@ -55,7 +54,6 @@ export function Message({ message, setRefrenceMessage }: Props) {
               </div>
             )}
 
-            {/* Message text */}
             <div className="px-4 py-2 wrap-break-word leading-relaxed">
               {message.text}
             </div>

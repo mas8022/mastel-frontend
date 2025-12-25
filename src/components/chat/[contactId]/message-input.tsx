@@ -12,7 +12,10 @@ type PropsType = {
   setRefrenceMessage: (value: MessageType | any) => void;
 };
 
-export function MessageInput({ referenceMessage, setRefrenceMessage }: PropsType) {
+export function MessageInput({
+  referenceMessage,
+  setRefrenceMessage,
+}: PropsType) {
   const [message, setMessage] = useState("");
 
   const { contactId } = useParams();
@@ -32,7 +35,7 @@ export function MessageInput({ referenceMessage, setRefrenceMessage }: PropsType
   };
 
   return (
-    <div className="sticky bottom-0 z-10 p-3 border-t bg-background/80 backdrop-blur rounded-xl flex flex-col gap-2">
+    <div className=" p-3 border-t bg-background/80 backdrop-blur rounded-xl flex flex-col gap-2">
       {/* Reply box (Telegram style) */}
       {referenceMessage && (
         <div className="flex items-start justify-between gap-2 p-2 rounded-lg bg-muted border-l-4 border-primary">
