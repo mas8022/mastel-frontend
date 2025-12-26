@@ -1,16 +1,30 @@
+export type MessageEnum = "TEXT" | "IMAGE" | "VIDEO" | "VOICE" | "FILE";
+
 export interface MessageType {
   id: number;
-  text: string;
-  senderId: number;
-  receiverId: number;
-  createdAt: Date;
-  updatedAt: Date;
+  type: MessageEnum;
+  text?: string;
+  fileUrl?: string;
+  fileKey?: string;
+  mimeType?: string;
+  size?: number;
+  duration?: number;
   replyTo?: {
     id: number;
-    text: string;
+    type: MessageEnum;
+    text?: string;
+    fileUrl?: string;
+    fileKey?: string;
+    mimeType?: string;
+    size?: number;
+    duration?: number;
     senderId: number;
     receiverId: number;
     createdAt: Date;
     updatedAt: Date;
   };
+  senderId: number;
+  receiverId: number;
+  createdAt: Date;
+  updatedAt: Date;
 }

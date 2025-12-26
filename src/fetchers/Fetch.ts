@@ -17,7 +17,6 @@ const errorMessages: any = {
 const Fetch = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   withCredentials: true,
-  adapter: "fetch",
 });
 
 Fetch.interceptors.response.use(

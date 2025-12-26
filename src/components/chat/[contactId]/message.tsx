@@ -6,6 +6,10 @@ import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 import MessageContextMenu from "./MessageContextMenu";
 import { useState } from "react";
 import EditModal from "./EditModal";
+import { Card, CardContent } from "@/components/ui/card";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Image from "next/image";
+import { VoicePlayer } from "./VoicePlayer";
 
 type Props = {
   message: MessageType;
@@ -17,11 +21,70 @@ export function Message({ message, setRefrenceMessage }: Props) {
   const isMyMessage = message.senderId !== Number(contactId);
   const [editModalActive, setEditModelActive] = useState(false);
 
+  const renderMessageContent = () => {
+    switch (message.type) {
+      case "TEXT":
+        return <div className="px-4 py-2 wrap-break-word">{message.text}</div>;
+
+      case "IMAGE":
+        return message.fileUrl ? (
+          <CardContent className="p-0">
+            <Image
+              width={200}
+              height={200}
+              src={message.fileUrl}
+              alt="image message"
+              className="object-cover w-full h-auto"
+            />
+          </CardContent>
+        ) : null;
+
+      case "VIDEO":
+        return message.fileUrl ? (
+          <Card className="overflow-hidden rounded-xl max-w-[300px]">
+            <CardContent className="p-0">
+              <AspectRatio ratio={16 / 9}>
+                <video
+                  src={message.fileUrl}
+                  controls
+                  className="object-cover w-full h-full"
+                />
+              </AspectRatio>
+            </CardContent>
+          </Card>
+        ) : null;
+
+      case "VOICE":
+        return message.fileUrl ? (
+          <VoicePlayer src={message.fileUrl} duration={message.duration!} />
+        ) : null;
+
+      case "FILE":
+        return message.fileUrl ? (
+          <Card className="overflow-hidden rounded-xl max-w-[300px] p-3 flex items-center justify-between">
+            <span className="truncate">{message.fileKey}</span>
+            <a
+              href={message.fileUrl}
+              target="_blank"
+              className="inline-flex items-center px-3 py-1.5 rounded-md border border-input text-sm font-medium shadow-sm hover:bg-muted/50"
+            >
+              Download
+            </a>
+          </Card>
+        ) : null;
+
+      default:
+        return <div>Unsupported message type</div>;
+    }
+  };
+
   return (
     <ContextMenu>
       <ContextMenuTrigger asChild>
         <div
-          className={`flex ${isMyMessage ? "justify-end" : "justify-start"}`}
+          className={`flex ${
+            isMyMessage ? "justify-end" : "justify-start"
+          } mb-2`}
         >
           <div
             className={`
@@ -50,13 +113,11 @@ export function Message({ message, setRefrenceMessage }: Props) {
                   }
                 `}
               >
-                {message.replyTo.text}
+                {message.replyTo.text ?? "Media message"}
               </div>
             )}
 
-            <div className="px-4 py-2 wrap-break-word leading-relaxed">
-              {message.text}
-            </div>
+            {renderMessageContent()}
           </div>
         </div>
       </ContextMenuTrigger>

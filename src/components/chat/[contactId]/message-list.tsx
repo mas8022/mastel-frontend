@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useRef } from "react";
 import { MessageType } from "@/types/message";
 import Empty from "./Empty";
 import { Message } from "./message";
