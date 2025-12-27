@@ -7,6 +7,7 @@ type UploadType = "video" | "voice" | "image" | "file";
 type UploadResult = {
   key: string;
   url: string;
+  size: number;
 };
 
 const useUploadFile = () => {
@@ -37,7 +38,7 @@ const useUploadFile = () => {
         },
       });
 
-      setResult({ key, url: publicUrl });
+      setResult({ key, url: publicUrl, size: file.size });
       setProgress(100);
     } catch (err) {
       console.error("Upload failed:", err);

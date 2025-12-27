@@ -1,15 +1,15 @@
 "use client";
-
 import { useParams } from "next/navigation";
 import { MessageType } from "@/types/message";
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 import MessageContextMenu from "./MessageContextMenu";
 import { useState } from "react";
 import EditModal from "./EditModal";
-import { Card, CardContent } from "@/components/ui/card";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { VoicePlayer } from "./VoicePlayer";
+import { VoiceMessage } from "./VoiceMessage";
+import VideoPlayer from "@/components/shared/VideoPlayer";
+import FileMessage from "./FileMessage";
 
 type Props = {
   message: MessageType;
@@ -41,37 +41,27 @@ export function Message({ message, setRefrenceMessage }: Props) {
 
       case "VIDEO":
         return message.fileUrl ? (
-          <Card className="overflow-hidden rounded-xl max-w-[300px]">
-            <CardContent className="p-0">
-              <AspectRatio ratio={16 / 9}>
-                <video
-                  src={message.fileUrl}
-                  controls
-                  className="object-cover w-full h-full"
-                />
-              </AspectRatio>
-            </CardContent>
-          </Card>
+          <div
+            className="
+        relative
+        w-full
+        max-w-[320px]
+        aspect-video
+        overflow-hidden
+        bg-black
+      "
+          >
+            <VideoPlayer src={message.fileUrl} />
+          </div>
         ) : null;
 
       case "VOICE":
         return message.fileUrl ? (
-          <VoicePlayer src={message.fileUrl} duration={message.duration!} />
+          <VoiceMessage src={message.fileUrl} duration={message.duration!} />
         ) : null;
 
       case "FILE":
-        return message.fileUrl ? (
-          <Card className="overflow-hidden rounded-xl max-w-[300px] p-3 flex items-center justify-between">
-            <span className="truncate">{message.fileKey}</span>
-            <a
-              href={message.fileUrl}
-              target="_blank"
-              className="inline-flex items-center px-3 py-1.5 rounded-md border border-input text-sm font-medium shadow-sm hover:bg-muted/50"
-            >
-              Download
-            </a>
-          </Card>
-        ) : null;
+        return <FileMessage message={message} />;
 
       default:
         return <div>Unsupported message type</div>;

@@ -49,6 +49,7 @@ export function MessageInput({
       fileUrl: result.url,
       fileKey: result.key,
       replyToId: referenceMessage?.id ?? null,
+      size: result.size,
     });
 
     reset();

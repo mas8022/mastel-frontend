@@ -7,7 +7,7 @@ type Props = {
   duration: number;
 };
 
-export function VoicePlayer({ src, duration }: Props) {
+export function VoiceMessage({ src, duration }: Props) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
 
